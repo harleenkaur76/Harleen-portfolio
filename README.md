@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Harleen Kaur — Portfolio
+
+A bold, animated portfolio built with Next.js 15, Tailwind CSS, and Framer Motion.
+
+## Features
+
+- **Bold Dark Design** with coral (`#FF6B35`) and teal (`#00d4aa`) accents
+- **Scroll-triggered animations** powered by Framer Motion
+- **Animated stat counters** (100+ experiments, 80% faster setup, etc.)
+- **Metric-driven experience timeline** — every bullet has business impact
+- **Interactive skills grid** with hover effects
+- **Project showcases** with performance metrics
+- **Contact form** connected to Gmail via Resend
+- **Fully responsive** — mobile, tablet, desktop
+- **SEO optimised** with metadata, OpenGraph tags, semantic HTML
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | Next.js 15 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 |
+| Animations | Framer Motion |
+| Icons | Lucide React + Custom SVG |
+| Email | Resend (Server Actions) |
+| Fonts | Geist Sans + Geist Mono |
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy to Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Push to GitHub
+2. Import into [vercel.com](https://vercel.com)
+3. Add environment variable:
+   - `RESEND_API_KEY` — from [resend.com](https://resend.com)
+4. Update the `from` email in `src/app/actions.ts` to your verified domain
+5. Deploy!
 
-## Learn More
+## Contact Form Setup
 
-To learn more about Next.js, take a look at the following resources:
+The contact form uses Resend to send emails to `harleenbindra07@gmail.com`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Sign up at [resend.com](https://resend.com)
+2. Get your API key
+3. Add it as `RESEND_API_KEY` in Vercel environment variables
+4. Verify your domain (or use `onboarding@resend.dev` for testing)
+5. Update the `to` address in `src/app/actions.ts` if needed
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+```
+src/
+├── app/
+│   ├── actions.ts          # Server action for contact form
+│   ├── layout.tsx           # Root layout with metadata
+│   ├── page.tsx             # Homepage composing all sections
+│   └── globals.css          # Global styles + CSS variables
+├── components/
+│   ├── Navbar.tsx           # Fixed nav + mobile menu
+│   ├── Hero.tsx             # Animated hero section
+│   ├── Stats.tsx            # Animated counters
+│   ├── Experience.tsx       # Work history timeline
+│   ├── Skills.tsx           # Interactive skills grid
+│   ├── Projects.tsx         # Project showcases
+│   ├── Contact.tsx          # Contact form + info
+│   ├── Footer.tsx           # Footer with social links
+│   └── Icons.tsx            # Custom SVG icons (GitHub, LinkedIn)
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contact
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Email: harleenbindra07@gmail.com
+- LinkedIn: [linkedin.com/in/harleenkaur07](https://linkedin.com/in/harleenkaur07)
+- GitHub: [github.com/harleenkaur76](https://github.com/harleenkaur76)
