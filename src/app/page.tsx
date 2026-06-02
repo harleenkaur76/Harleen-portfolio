@@ -31,12 +31,12 @@ export default function Home() {
 function SectionDivider({ label }: { label: string }) {
   return (
     <div className="max-w-3xl mx-auto px-6">
-      <div className="flex items-center gap-4 py-8">
-        <div className="h-px flex-1 bg-white/[0.04]" />
-        <span className="text-[10px] font-mono text-[#9a9386]/30 uppercase tracking-[0.3em]">
+      <div className="flex items-center gap-4 py-10">
+        <div className="h-px flex-1 bg-gradient-to-r from-transparent to-white/[0.05]" />
+        <span className="text-[10px] font-mono text-[#9a9386]/25 uppercase tracking-[0.4em]">
           {label}
         </span>
-        <div className="h-px flex-1 bg-white/[0.04]" />
+        <div className="h-px flex-1 bg-gradient-to-l from-transparent to-white/[0.05]" />
       </div>
     </div>
   );
