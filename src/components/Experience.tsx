@@ -1,173 +1,119 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Briefcase, TrendingUp, Zap, Shield, Rocket, Code, ArrowUpRight } from "lucide-react";
+import { Briefcase } from "lucide-react";
 
 const experiences = [
   {
     title: "Frontend Developer",
     company: "Optiphoenix",
-    period: "July 2022 – Present",
-    duration: "3+ Years",
-    type: "full-time",
+    period: "2022 – Present",
+    duration: "3+ years",
     summary:
-      "Leading frontend engineering for an experimentation-focused agency serving Fortune 500 clients. Own the full experiment lifecycle from ideation to statistical validation.",
+      "Joined as an intern and somehow they kept me around. I now handle the full frontend lifecycle for A/B experiments across multiple enterprise clients. My day-to-day is React components in the morning, debugging why an Optimizely variation is not firing in the afternoon, and writing CSS that has to work in whatever ancient build system the client runs.",
     highlights: [
-      {
-        icon: Zap,
-        metric: "80%",
-        metricLabel: "faster setup",
-        text: "Engineered a Node.js/Gulp CLI that automated programmatic experiment creation, audience targeting, and event tracking via Optimizely Web REST APIs — adopted as the standard workflow across the full engineering team.",
-      },
-      {
-        icon: TrendingUp,
-        metric: "100+",
-        metricLabel: "experiments shipped",
-        text: "Delivered production A/B experiments across Convert, Kameleoon, VWO, and Adobe Target — consistently achieving statistical significance within 2-week windows and driving CVR and retention uplift across 8+ accounts.",
-      },
-      {
-        icon: Shield,
-        metric: "Zero",
-        metricLabel: "deployment errors",
-        text: "Ensured experiment data integrity across high-traffic SPAs by implementing custom attribute-based event selectors on DOM-restricted client sites and eliminating duplicate goal fires.",
-      },
-      {
-        icon: Rocket,
-        metric: "40%",
-        metricLabel: "Lighthouse improvement",
-        text: "Improved Lighthouse performance scores by up to 40% across multiple high-traffic SPAs through lazy loading, code splitting, asset compression, and critical-path rendering strategies.",
-      },
-      {
-        icon: Code,
-        metric: "35%",
-        metricLabel: "faster dev time",
-        text: "Reduced feature development time by architecting reusable React.js component libraries aligned to Figma-based design systems — standardising UI patterns across 6+ client projects.",
-      },
+      "Built a Node.js/Gulp CLI that automated experiment creation via the Optimizely REST API. The whole team uses it now, which is both flattering and slightly terrifying.",
+      "Shipped 100+ experiments across Convert, Kameleoon, VWO, Adobe Target, and others. I have strong opinions about which platforms are good and which ones make you cry.",
+      "Fixed a race condition in a Microsoft SPA experiment that was causing duplicate goal fires. Took two days and three coffees. Felt very good when it worked.",
+      "Improved Lighthouse scores by up to 40% on high-traffic SPAs through lazy loading, code splitting, and yelling at asset compression until it cooperated.",
     ],
-    tools: ["React.js", "Optimizely", "Node.js", "Gulp", "Webpack", "Google Analytics", "Figma"],
+    tools: ["React", "Optimizely", "Node.js", "Gulp", "Webpack", "GA4", "Figma"],
   },
   {
     title: "Frontend Developer Intern",
     company: "Optiphoenix",
     period: "Dec 2021 – June 2022",
-    duration: "7 Months",
-    type: "internship",
+    duration: "7 months",
     summary:
-      "Joined as an intern and quickly became a core contributor. Focused on performance optimisation and modern build tooling adoption.",
+      "My first real job. I spent a lot of time learning by breaking things and then frantically fixing them before anyone noticed. Got really good at Webpack during this period, mostly because I had to.",
     highlights: [
-      {
-        icon: TrendingUp,
-        metric: "30%",
-        metricLabel: "faster load time",
-        text: "Reduced initial page load time by 30% and grew organic traffic by 20% within one quarter by implementing Webpack bundling, code splitting, lazy loading, and SEO improvements across 3 client SPAs.",
-      },
+      "Reduced page load times by 30% on three client SPAs by implementing code splitting and lazy loading. First time I realized performance work is as much about measurement as it is about code.",
     ],
-    tools: ["React.js", "Webpack", "SEO", "Performance"],
+    tools: ["React", "Webpack", "SEO"],
   },
 ];
 
 export default function Experience() {
   return (
     <section id="experience" className="py-24 px-6">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-3xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <span className="text-[#8B5CF6] text-sm font-medium uppercase tracking-widest">
-            Career
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold mt-3 mb-4">
-            Work Experience
+          <div className="flex items-center gap-4 mb-6">
+            <div className="w-8 h-px bg-[#d4a853]" />
+            <p className="text-sm font-mono text-[#d4a853]">// experience</p>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#f2eee6] mb-5">
+            Where I worked
           </h2>
-          <p className="text-[#6b7280] max-w-xl">
-            Every role has been measured by business impact. Here is how I have driven results at Optiphoenix.
+          <p className="text-[#9a9386] leading-relaxed max-w-xl">
+            Just one company so far, but I have shipped enough experiments across enough platforms
+            to feel like I worked at five.
           </p>
         </motion.div>
 
         <div className="relative">
-          {/* Timeline line */}
-          <div className="absolute left-4 sm:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-[#8B5CF6]/50 via-[#00d4aa]/30 to-transparent" />
+          {/* Vertical timeline line */}
+          <div className="absolute left-[11px] sm:left-[15px] top-8 bottom-8 w-px bg-gradient-to-b from-[#d4a853]/30 via-[#d4a853]/10 to-transparent" />
 
           <div className="space-y-16">
             {experiences.map((exp, index) => (
               <motion.div
                 key={exp.title + exp.period}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative pl-12 sm:pl-20"
+                className="relative pl-10 sm:pl-14"
               >
                 {/* Timeline dot */}
-                <div className="absolute left-2 sm:left-6 top-1 w-4 h-4 rounded-full bg-[#0a0a0f] border-2 border-[#8B5CF6] z-10" />
+                <div className="absolute left-2 sm:left-3 top-1.5 w-5 h-5 rounded-full border-2 border-[#d4a853]/50 bg-[#0d0c0a] flex items-center justify-center">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#d4a853]" />
+                </div>
 
-                {/* Header */}
-                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
-                  <div className="flex items-start gap-3">
-                    <div className="p-2.5 rounded-xl bg-[#8B5CF6]/10 text-[#8B5CF6] shrink-0">
-                      <Briefcase size={20} />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-semibold text-[#f5f5f5]">
-                        {exp.title}
-                      </h3>
-                      <div className="flex flex-wrap items-center gap-2 mt-1">
-                        <span className="text-[#8B5CF6] font-medium">{exp.company}</span>
-                        <span className="text-[#6b7280]">·</span>
-                        <span className="text-sm text-[#6b7280]">{exp.period}</span>
-                        <span className="text-[#6b7280]">·</span>
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-white/5 text-[#6b7280]">
-                          {exp.duration}
-                        </span>
-                      </div>
+                <div className="flex items-start gap-3 mb-4">
+                  <div>
+                    <h3 className="text-lg font-semibold text-[#f2eee6]">{exp.title}</h3>
+                    <div className="flex flex-wrap items-center gap-2 mt-1.5 font-mono text-xs text-[#9a9386]">
+                      <span className="text-[#d4a853]">{exp.company}</span>
+                      <span className="text-white/10">|</span>
+                      <span>{exp.period}</span>
+                      <span className="text-white/10">|</span>
+                      <span className="px-1.5 py-0.5 rounded bg-white/[0.03] text-[#9a9386]/70">{exp.duration}</span>
                     </div>
                   </div>
                 </div>
 
-                <p className="text-[#a1a1aa] mb-6 leading-relaxed">{exp.summary}</p>
+                <p className="text-[#9a9386] text-sm leading-relaxed mb-5">
+                  {exp.summary}
+                </p>
 
-                {/* Highlights */}
-                <div className="space-y-4">
-                  {exp.highlights.map((highlight, hIndex) => (
+                <div className="space-y-3 mb-5">
+                  {exp.highlights.map((highlight, i) => (
                     <motion.div
-                      key={hIndex}
-                      initial={{ opacity: 0, x: -20 }}
+                      key={i}
+                      initial={{ opacity: 0, x: -10 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: hIndex * 0.1 }}
-                      className="group flex gap-4 p-5 rounded-xl bg-[#12121a] border border-white/5 card-hover"
+                      transition={{ duration: 0.4, delay: i * 0.08 }}
+                      className="flex gap-3 group"
                     >
-                      <div className="shrink-0 text-center">
-                        <div className="p-2.5 rounded-lg bg-[#8B5CF6]/10 text-[#8B5CF6] mb-2">
-                          <highlight.icon size={18} />
-                        </div>
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-baseline gap-2 mb-1">
-                          <span className="text-2xl font-bold text-[#8B5CF6]">
-                            {highlight.metric}
-                          </span>
-                          <span className="text-xs text-[#6b7280] uppercase tracking-wide">
-                            {highlight.metricLabel}
-                          </span>
-                        </div>
-                        <p className="text-sm text-[#a1a1aa] leading-relaxed">
-                          {highlight.text}
-                        </p>
-                      </div>
+                      <span className="text-[#d4a853]/50 group-hover:text-[#d4a853] transition-colors shrink-0 mt-1 font-mono text-xs">→</span>
+                      <p className="text-sm text-[#9a9386] leading-relaxed">{highlight}</p>
                     </motion.div>
                   ))}
                 </div>
 
-                {/* Tools */}
-                <div className="flex flex-wrap gap-2 mt-4">
+                <div className="flex flex-wrap gap-2">
                   {exp.tools.map((tool) => (
                     <span
                       key={tool}
-                      className="px-2.5 py-1 rounded-md text-xs bg-white/5 text-[#6b7280] border border-white/5"
+                      className="px-2 py-1 rounded text-[11px] font-mono text-[#9a9386] bg-white/[0.03] border border-white/[0.05] hover:border-[#d4a853]/20 hover:text-[#f2eee6] transition-colors"
                     >
                       {tool}
                     </span>

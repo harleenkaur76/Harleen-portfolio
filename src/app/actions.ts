@@ -21,21 +21,16 @@ export async function sendContactEmail(formData: FormData) {
     return { success: false, error: "Please enter a valid email address." };
   }
 
-  try {
-    if (!resend) {
-      console.log("Contact form submission (Resend not configured):", {
-        name,
-        email,
-        subject,
-        message,
-      });
-      return {
-        success: false,
-        error:
-          "Email service not configured. Please set up RESEND_API_KEY in your environment variables.",
-      };
-    }
+  // If Resend is not configured, signal client to use mailto fallback
+  if (!resend) {
+    return {
+      success: false,
+      requiresFallback: true,
+      error: null,
+    };
+  }
 
+  try {
     await resend.emails.send({
       from: "Portfolio Contact <onboarding@resend.dev>",
       to: "harleenbindra07@gmail.com",

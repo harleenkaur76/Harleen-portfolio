@@ -1,12 +1,9 @@
 import Hero from "@/components/Hero";
-import Stats from "@/components/Stats";
-import ClientMarquee from "@/components/ClientMarquee";
-import Services from "@/components/Services";
+import Now from "@/components/Now";
 import Experience from "@/components/Experience";
-import ProcessSection from "@/components/ProcessSection";
 import Skills from "@/components/Skills";
-import TerminalShowcase from "@/components/TerminalShowcase";
 import Projects from "@/components/Projects";
+import TerminalShowcase from "@/components/TerminalShowcase";
 import BlogPreview from "@/components/BlogPreview";
 import Contact from "@/components/Contact";
 
@@ -14,16 +11,33 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Stats />
-      <ClientMarquee />
-      <Services />
+      <Now />
+      <SectionDivider label="experience" />
       <Experience />
-      <ProcessSection />
+      <SectionDivider label="tools" />
       <Skills />
-      <TerminalShowcase />
+      <SectionDivider label="projects" />
       <Projects />
+      <SectionDivider label="code" />
+      <TerminalShowcase />
+      <SectionDivider label="writings" />
       <BlogPreview />
+      <SectionDivider label="contact" />
       <Contact />
     </>
+  );
+}
+
+function SectionDivider({ label }: { label: string }) {
+  return (
+    <div className="max-w-3xl mx-auto px-6">
+      <div className="flex items-center gap-4 py-8">
+        <div className="h-px flex-1 bg-white/[0.04]" />
+        <span className="text-[10px] font-mono text-[#9a9386]/30 uppercase tracking-[0.3em]">
+          {label}
+        </span>
+        <div className="h-px flex-1 bg-white/[0.04]" />
+      </div>
+    </div>
   );
 }

@@ -3,8 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ParticleBackground from "@/components/ParticleBackground";
-import ScrollProgress from "@/components/ScrollProgress";
+import AmbientGlow from "@/components/AmbientGlow";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,23 +16,22 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Harleen Kaur | Frontend Engineer & A/B Testing Expert",
+  title: "Harleen Kaur — Frontend Engineer",
   description:
-    "Frontend Engineer with 3+ years delivering production-grade A/B experiments and performance-optimised SPAs for global clients including Microsoft, Accor, and Norwegian Air Shuttle.",
+    "I build frontends that actually perform. Three years of A/B experiments, performance work, and CSS specificity arguments.",
   keywords: [
     "Frontend Developer",
     "React",
     "Next.js",
     "A/B Testing",
     "Optimizely",
-    "JavaScript",
-    "TypeScript",
+    "Performance",
   ],
   authors: [{ name: "Harleen Kaur" }],
   openGraph: {
-    title: "Harleen Kaur | Frontend Developer",
+    title: "Harleen Kaur — Frontend Engineer",
     description:
-      "Frontend Engineer with 3+ years delivering production-grade experiments and performance-optimised SPAs.",
+      "I build frontends that actually perform.",
     type: "website",
   },
 };
@@ -49,11 +47,10 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body
-        className="min-h-full flex flex-col bg-[#0a0a0f] text-[#f5f5f5]"
+        className="min-h-full flex flex-col"
         suppressHydrationWarning
       >
-        <ParticleBackground />
-        <ScrollProgress />
+        <AmbientGlow />
         <Navbar />
         <main className="flex-1 relative z-10">{children}</main>
         <Footer />

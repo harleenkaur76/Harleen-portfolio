@@ -1,149 +1,99 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Code2, Wrench, Gauge, FlaskConical, BarChart3 } from "lucide-react";
 
 const skillCategories = [
   {
     title: "Languages",
-    skills: [
-      { name: "JavaScript (ES6+)", level: 95 },
-      { name: "TypeScript", level: 90 },
-      { name: "HTML5", level: 95 },
-      { name: "CSS3", level: 92 },
-      { name: "C++", level: 70 },
-    ],
-    color: "#8B5CF6",
+    icon: Code2,
+    skills: ["JavaScript (ES6+)", "TypeScript", "HTML5", "CSS3"],
   },
   {
     title: "Frameworks & Libraries",
-    skills: [
-      { name: "React.js", level: 95 },
-      { name: "Next.js", level: 88 },
-      { name: "Redux Toolkit", level: 90 },
-      { name: "Node.js", level: 85 },
-      { name: "Tailwind CSS", level: 92 },
-      { name: "Webpack", level: 80 },
-      { name: "Gulp", level: 85 },
-    ],
-    color: "#00d4aa",
+    icon: Wrench,
+    skills: ["React", "Next.js", "Redux Toolkit", "Node.js", "Tailwind CSS", "Webpack"],
   },
   {
     title: "Performance & A11y",
-    skills: [
-      { name: "Core Web Vitals", level: 92 },
-      { name: "Lighthouse", level: 90 },
-      { name: "Lazy Loading", level: 95 },
-      { name: "Code Splitting", level: 90 },
-      { name: "WCAG 2.1", level: 85 },
-      { name: "SEO Optimisation", level: 88 },
-    ],
-    color: "#8B5CF6",
+    icon: Gauge,
+    skills: ["Core Web Vitals", "Lighthouse", "Lazy Loading", "Code Splitting", "WCAG"],
   },
   {
     title: "A/B Testing & CRO",
-    skills: [
-      { name: "Optimizely", level: 95 },
-      { name: "Convert", level: 90 },
-      { name: "Kameleoon", level: 88 },
-      { name: "Adobe Target", level: 85 },
-      { name: "VWO", level: 90 },
-      { name: "AB Tasty", level: 82 },
-      { name: "WebTrends Optimize", level: 78 },
-    ],
-    color: "#00d4aa",
+    icon: FlaskConical,
+    skills: ["Optimizely", "Convert", "Kameleoon", "Adobe Target", "VWO", "AB Tasty"],
   },
   {
-    title: "Analytics & Tooling",
-    skills: [
-      { name: "Google Analytics", level: 90 },
-      { name: "Event Tracking", level: 92 },
-      { name: "Git", level: 88 },
-      { name: "Figma", level: 85 },
-      { name: "Jira", level: 90 },
-      { name: "Agile/Scrum", level: 88 },
-    ],
-    color: "#8B5CF6",
+    title: "Tooling",
+    icon: BarChart3,
+    skills: ["Git", "Google Analytics", "Figma", "Jira"],
   },
 ];
-
-function ProficiencyBar({
-  name,
-  level,
-  color,
-  delay,
-}: {
-  name: string;
-  level: number;
-  color: string;
-  delay: number;
-}) {
-  return (
-    <div className="mb-3">
-      <div className="flex items-center justify-between mb-1.5">
-        <span className="text-sm text-[#a1a1aa]">{name}</span>
-        <span className="text-xs font-mono text-[#6b7280]">{level}%</span>
-      </div>
-      <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
-        <motion.div
-          initial={{ width: 0 }}
-          whileInView={{ width: `${level}%` }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay, ease: "easeOut" }}
-          className="h-full rounded-full"
-          style={{ backgroundColor: color }}
-        />
-      </div>
-    </div>
-  );
-}
 
 export default function Skills() {
   return (
     <section id="skills" className="py-24 px-6">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-3xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-16 text-center"
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="mb-12"
         >
-          <span className="text-[#8B5CF6] text-sm font-medium uppercase tracking-widest">
-            Arsenal
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold mt-3 mb-4">
-            Skills & Proficiency
+          <div className="flex items-center gap-4 mb-6">
+            <div className="w-8 h-px bg-[#d4a853]" />
+            <p className="text-sm font-mono text-[#d4a853]">// tools</p>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#f2eee6] mb-5">
+            What I use
           </h2>
-          <p className="text-[#6b7280] max-w-xl mx-auto">
-            Deep expertise across the frontend stack with quantified proficiency levels.
-            Deep expertise in A/B testing platforms and performance optimisation.
+          <p className="text-[#9a9386] max-w-lg">
+            I am not going to claim I am an expert in all of these. I have shipped production code
+            with each one, some more than others.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {skillCategories.map((category, index) => (
             <motion.div
               key={category.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="p-6 rounded-2xl bg-[#12121a] border border-white/5 card-hover"
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: index * 0.08 }}
+              whileHover={{ y: -4, transition: { duration: 0.2 } }}
+              className="group relative p-6 rounded-lg bg-[#181614] border border-white/[0.04] hover:border-[#d4a853]/20 transition-all duration-300"
             >
-              <h3
-                className="text-lg font-semibold mb-5"
-                style={{ color: category.color }}
-              >
-                {category.title}
-              </h3>
-              {category.skills.map((skill, sIndex) => (
-                <ProficiencyBar
-                  key={skill.name}
-                  name={skill.name}
-                  level={skill.level}
-                  color={category.color}
-                  delay={index * 0.1 + sIndex * 0.05}
-                />
-              ))}
+              {/* Hover glow effect */}
+              <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-[#d4a853]/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+              <div className="relative">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2 rounded bg-[#d4a853]/10">
+                    <category.icon size={18} className="text-[#d4a853]" />
+                  </div>
+                  <h3 className="text-sm font-semibold text-[#f2eee6]">
+                    {category.title}
+                  </h3>
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  {category.skills.map((skill, sIndex) => (
+                    <motion.span
+                      key={skill}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.3, delay: sIndex * 0.03 }}
+                      className="px-2.5 py-1 rounded text-sm font-mono text-[#9a9386] bg-white/[0.03] border border-white/[0.05] hover:border-[#d4a853]/30 hover:text-[#f2eee6] transition-all cursor-default"
+                    >
+                      {skill}
+                    </motion.span>
+                  ))}
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>

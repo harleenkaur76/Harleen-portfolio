@@ -65,16 +65,14 @@ export default function Services() {
           viewport={{ once: true }}
           className="mb-16 text-center"
         >
-          <span className="text-[#8B5CF6] text-sm font-medium uppercase tracking-widest">
-            What I Do
+          <span className="text-[#8B5CF6] text-sm font-medium uppercase tracking-widest font-mono">
+            &lt;services /&gt;
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold mt-3 mb-4">
-            Services & Expertise
+            What I Do
           </h2>
           <p className="text-[#6b7280] max-w-xl mx-auto">
-            I bring a unique blend of frontend engineering and conversion
-            optimisation that moves business metrics while shipping clean,
-            maintainable code.
+            I ship code that moves business metrics while staying clean and maintainable.
           </p>
         </motion.div>
 

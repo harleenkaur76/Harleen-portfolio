@@ -58,15 +58,14 @@ export default function ProcessSection() {
           viewport={{ once: true }}
           className="mb-16 text-center"
         >
-          <span className="text-[#8B5CF6] text-sm font-medium uppercase tracking-widest">
-            My Process
+          <span className="text-[#8B5CF6] text-sm font-medium uppercase tracking-widest font-mono">
+            &lt;process /&gt;
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold mt-3 mb-4">
-            How I Deliver Impact
+            How I Ship
           </h2>
           <p className="text-[#6b7280] max-w-xl mx-auto">
-            A proven 6-step methodology refined across 100+ experiments and
-            8+ global client accounts.
+            Refined across 100+ experiments. Not dogma — just what works.
           </p>
         </motion.div>
 

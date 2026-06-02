@@ -19,8 +19,8 @@ export default function ClientMarquee() {
   return (
     <section className="py-16 overflow-hidden border-y border-white/5">
       <div className="mb-8 text-center">
-        <p className="text-sm text-[#6b7280] uppercase tracking-widest">
-          Trusted by global brands
+        <p className="text-sm text-[#6b7280] font-mono uppercase tracking-widest">
+          // clients_worked_with
         </p>
       </div>
       <div className="relative flex overflow-hidden">
