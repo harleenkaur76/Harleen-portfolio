@@ -13,6 +13,7 @@ export const site = {
   links: {
     github: "https://github.com/harleenkaur76",
     linkedin: "https://www.linkedin.com/in/harleenkaur07/",
+    x: "https://x.com/harleenbindra07",
   },
   // Shown in the hero and contact section. Keep it true.
   availability: "Open to new roles and select freelance work",
@@ -24,6 +25,13 @@ export const site = {
     { id: "contact", label: "Contact" },
   ],
 } as const;
+
+// Profile links, in the order they are shown in the contact section and footer.
+export const socials = [
+  { label: "LinkedIn", href: site.links.linkedin },
+  { label: "GitHub", href: site.links.github },
+  { label: "X / Twitter", href: site.links.x },
+];
 
 export function mailto(subject: string, body?: string) {
   const params = [`subject=${encodeURIComponent(subject)}`];

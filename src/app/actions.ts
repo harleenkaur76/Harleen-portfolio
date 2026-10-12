@@ -10,9 +10,7 @@ export type ContactState = {
   values?: { name: string; email: string; message: string };
 };
 
-const resend = process.env.RESEND_API_KEY
-  ? new Resend(process.env.RESEND_API_KEY)
-  : null;
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 const escapeHtml = (value: string) =>
   value.replace(/[&<>"']/g, (char) => `&#${char.charCodeAt(0)};`);
@@ -37,7 +35,11 @@ export async function sendContactEmail(
     return { status: "error", message: "That email address doesn’t look right.", values };
   }
   if (message.length > 5000) {
-    return { status: "error", message: "That message is a little long. Could you trim it?", values };
+    return {
+      status: "error",
+      message: "That message is a little long. Could you trim it?",
+      values,
+    };
   }
 
   // Without a Resend key the form hands over to the visitor's own email app.

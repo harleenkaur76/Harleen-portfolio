@@ -3,7 +3,8 @@
 
 export const about = {
   statement:
-    "Most of my career has been spent as a guest in other people’s codebases.",
+    "Just one company so far, but I have shipped enough experiments across enough platforms to feel like I worked at five.",
+  aside: "Most of that time I’ve been a guest in other people’s codebases.",
   paragraphs: [
     "I joined Optiphoenix as an intern in December 2021, while finishing a B.Tech in Information Technology at Indraprastha University, and stayed. Nearly five years on I’m a Senior Frontend Developer there, building A/B experiments for client brands including Microsoft, Accor and Norwegian.",
     "The job is stranger than it sounds. Every brief starts on a live website I have never seen, built on a framework I didn’t pick, with a release cycle I’m not part of. My code is injected on top and has to behave as though it had always been there. You learn to read before you write.",
@@ -18,6 +19,8 @@ export const about = {
       label: "Platforms",
       value: "Optimizely, VWO, Adobe Target, Convert, AB Tasty, Kameleoon",
     },
+    { label: "Runs on", value: "Coffee. Obsessively." },
+    { label: "Browser", value: "A little ambition, a lot of tabs open" },
     {
       label: "Daily tools",
       value: "JavaScript, TypeScript, React, Next.js, Node.js, SCSS",
@@ -121,3 +124,13 @@ export const experiments: Experiment[] = [
     href: "https://github.com/harleenkaur76/Caviar",
   },
 ];
+
+// Her own words. Used in the hero ring and the marquee band.
+export const personal = {
+  ring: "Building · Learning · Networking · Winging it · ",
+  marquee: [
+    "A little ambition, a lot of tabs open",
+    "Building, learning, networking & winging it",
+    "Obsessed with coffee and with building new things",
+  ],
+};

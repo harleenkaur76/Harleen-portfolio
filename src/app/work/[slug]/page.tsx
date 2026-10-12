@@ -133,12 +133,15 @@ export default async function CaseStudyPage({ params }: Props) {
         ))}
       </div>
 
-      <footer className="border-t border-ink bg-paper-deep/60">
+      <footer className="tone-wine">
         <div className="shell grid gap-10 py-16 md:grid-cols-2 md:py-20">
           <Link href={`/work/${next.slug}`} className="arrow-link group block">
             <p className="label">Next case file · No. {next.number}</p>
             <p className="display mt-3 text-4xl transition-colors group-hover:text-oxblood md:text-5xl">
-              {next.title} <span className="arrow" aria-hidden="true">→</span>
+              {next.title}{" "}
+              <span className="arrow" aria-hidden="true">
+                →
+              </span>
             </p>
           </Link>
           <div className="md:pl-8">

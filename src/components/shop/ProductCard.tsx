@@ -19,7 +19,10 @@ export default function ProductCard({ product }: { product: Product }) {
         <span className="text-ink">{product.price}</span>
       </p>
       <h3 className="display mt-2 text-3xl transition-colors group-hover:text-oxblood">
-        {product.name} <span className="arrow" aria-hidden="true">→</span>
+        {product.name}{" "}
+        <span className="arrow" aria-hidden="true">
+          →
+        </span>
       </h3>
       <p className="mt-2 text-ink-soft">{product.tagline}</p>
     </Link>

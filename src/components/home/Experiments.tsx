@@ -3,7 +3,7 @@ import SectionHeading from "./SectionHeading";
 
 export default function Experiments() {
   return (
-    <section id="experiments" className="border-t border-rule bg-paper-deep/60 py-20 md:py-28">
+    <section id="experiments" className="section">
       <div className="shell">
         <SectionHeading
           label="Experiments and explorations"
@@ -11,7 +11,7 @@ export default function Experiments() {
           note="Unfinished on purpose. Each one says exactly how far along it is."
         />
 
-        <ul className="mt-14 border-t border-ink md:mt-20">
+        <ul className="mt-12 border-t border-ink md:mt-16">
           {experiments.map((experiment) => (
             <li
               key={experiment.name}

@@ -1,21 +1,26 @@
-// The repeating section opener: a small label, a large serif title and an
-// optional margin note on the right.
-export default function SectionHeading({
-  label,
-  title,
-  note,
-}: {
+type Props = {
   label: string;
   title: string;
+  /** Small count set beside the title, e.g. "03". */
+  count?: string;
+  /** One line of commentary under the title. */
   note?: string;
-}) {
+};
+
+// The centred opener shared by the homepage sections.
+export default function SectionHeading({ label, title, count, note }: Props) {
   return (
-    <div className="grid gap-6 md:grid-cols-12 md:items-end md:gap-8">
-      <div className="md:col-span-7">
-        <p className="label">{label}</p>
-        <h2 className="display mt-3 text-5xl md:text-7xl">{title}</h2>
-      </div>
-      {note && <p className="note md:col-span-4 md:col-start-9 md:mb-2">{note}</p>}
+    <div className="text-center">
+      <p className="label">{label}</p>
+      <h2 className="display mt-3 text-[clamp(2.5rem,6.2vw,5.5rem)]">
+        {title}
+        {count && (
+          <sup className="label ml-3 align-super text-oxblood" aria-hidden="true">
+            ({count})
+          </sup>
+        )}
+      </h2>
+      {note && <p className="note mx-auto mt-5 max-w-md pl-0 before:hidden">{note}</p>}
     </div>
   );
 }

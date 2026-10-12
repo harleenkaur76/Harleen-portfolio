@@ -43,28 +43,59 @@ export default function ContactForm() {
       <div className="grid gap-6 sm:grid-cols-2">
         <label className="block">
           <span className="label">Your name</span>
-          <input name="name" type="text" defaultValue={state.values?.name} required autoComplete="name" className={field} />
+          <input
+            name="name"
+            type="text"
+            defaultValue={state.values?.name}
+            required
+            autoComplete="name"
+            className={field}
+          />
         </label>
         <label className="block">
           <span className="label">Your email</span>
-          <input name="email" type="email" defaultValue={state.values?.email} required autoComplete="email" className={field} />
+          <input
+            name="email"
+            type="email"
+            defaultValue={state.values?.email}
+            required
+            autoComplete="email"
+            className={field}
+          />
         </label>
       </div>
       <label className="block">
         <span className="label">What are you working on?</span>
-        <textarea name="message" defaultValue={state.values?.message} required rows={4} maxLength={5000} className={`${field} resize-y`} />
+        <textarea
+          name="message"
+          defaultValue={state.values?.message}
+          required
+          rows={4}
+          maxLength={5000}
+          className={`${field} resize-y`}
+        />
       </label>
       {/* Honeypot, hidden from people and assistive tech */}
-      <input name="company" type="text" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
+      <input
+        name="company"
+        type="text"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="hidden"
+      />
 
       <div className="flex flex-wrap items-center gap-4">
-        <button type="submit" disabled={pending} className="btn btn-solid cursor-pointer disabled:opacity-60">
+        <button
+          type="submit"
+          disabled={pending}
+          className="btn btn-solid cursor-pointer disabled:opacity-60"
+        >
           {pending ? "Sending…" : "Send it"}
         </button>
         <p className="text-sm text-ink-soft" role="status" aria-live="polite">
           {state.status === "error" && <span className="text-oxblood">{state.message}</span>}
-          {state.status === "fallback" &&
-            "Opening your email app with the message ready to send."}
+          {state.status === "fallback" && "Opening your email app with the message ready to send."}
         </p>
       </div>
     </form>

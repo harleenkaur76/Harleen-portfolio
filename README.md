@@ -23,7 +23,6 @@ npm run build
 | Future shop products | `src/content/products.ts` |
 | Colours, type, annotations, motion | `src/app/globals.css` |
 | Case-study cover drawings | `src/components/covers/Cover.tsx` |
-| Portrait | `public/portrait-print.webp` (generated from `public/profile.jpg`) |
 
 ### Add a case study
 

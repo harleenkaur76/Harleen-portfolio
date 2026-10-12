@@ -1,16 +1,16 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Mono, DM_Sans, Instrument_Serif } from "next/font/google";
+import { DM_Mono, DM_Sans, Fraunces } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import { site } from "@/content/site";
+import { site, socials } from "@/content/site";
 import { products } from "@/content/products";
 
-const instrument = Instrument_Serif({
-  variable: "--font-instrument",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
-  weight: "400",
   style: ["normal", "italic"],
+  axes: ["opsz", "SOFT"],
   display: "swap",
 });
 
@@ -59,25 +59,30 @@ const personJsonLd = {
   jobTitle: "Senior Frontend Developer",
   worksFor: { "@type": "Organization", name: "Optiphoenix" },
   alumniOf: { "@type": "CollegeOrUniversity", name: "Indraprastha University" },
-  sameAs: [site.links.github, site.links.linkedin],
+  sameAs: socials.map((social) => social.href),
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="en"
       data-variant="b"
-      className={`${instrument.variable} ${dmSans.variable} ${dmMono.variable} antialiased`}
+      // The A/B switch rewrites data-variant outside React, and browser extensions
+      // often add their own attributes here; neither is a real hydration bug.
+      suppressHydrationWarning
+      className={`${fraunces.variable} ${dmSans.variable} ${dmMono.variable} antialiased`}
     >
-      <body className="flex min-h-dvh flex-col">
+      <body className="flex min-h-dvh flex-col" suppressHydrationWarning>
         <a
           href="#main"
           className="btn btn-solid sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50"
         >
           Skip to content
         </a>
+        <p className="only-a control-banner">
+          Control: this is the page before the design decisions. Switch to B, top right, to see the
+          variant.
+        </p>
         <Nav showShop={products.length > 0} />
         <main id="main" className="relative z-10 flex-1">
           {children}

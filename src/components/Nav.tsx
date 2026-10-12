@@ -70,22 +70,33 @@ export default function Nav({ showShop }: { showShop: boolean }) {
 
         <nav aria-label="Primary" className="hidden md:block">
           <ul className="flex items-center gap-7 text-[0.9375rem]">
-            {items.map((item) => (
-              <li key={item.id}>
-                <Link
-                  href={item.href}
-                  aria-current={current === item.id ? "true" : undefined}
-                  className="nav-link transition-colors hover:text-oxblood"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+            {items
+              .filter((item) => item.id !== "contact")
+              .map((item) => (
+                <li key={item.id}>
+                  <Link
+                    href={item.href}
+                    aria-current={current === item.id ? "true" : undefined}
+                    className="nav-link transition-colors hover:text-oxblood"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
           </ul>
         </nav>
 
         <div className="flex items-center gap-3">
           <VariantSwitch />
+          <Link
+            href="/#contact"
+            className="btn btn-solid arrow-link hidden min-h-0 px-4 py-2 text-sm md:inline-flex"
+          >
+            Let’s talk{" "}
+            <span className="arrow" aria-hidden="true">
+              →
+            </span>
+          </Link>
           <button
             type="button"
             className="label -mr-2 cursor-pointer px-2 py-3 text-ink md:hidden"
@@ -118,9 +129,7 @@ export default function Nav({ showShop }: { showShop: boolean }) {
               </li>
             ))}
           </ol>
-          <p className="shell note mb-10 ml-5 mt-2 max-w-xs">
-            {site.availability}.
-          </p>
+          <p className="shell note mb-10 ml-5 mt-2 max-w-xs">{site.availability}.</p>
         </nav>
       )}
     </header>

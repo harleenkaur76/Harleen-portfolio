@@ -1,9 +1,8 @@
 // Case studies. Each entry renders as a row on the homepage and as a full
 // page at /work/[slug]. Add a new object to `work` to publish another one.
 //
-// Text supports `inline code` with backticks. Client names: only Microsoft,
-// Accor and Norwegian are named (they are on the public resume). Everything
-// else is described, not named. No experiment IDs, no client endpoints.
+// Text supports `inline code` with backticks. Case files never name the
+// client: describe them ("a Nordic airline"). No experiment IDs, no endpoints.
 
 export type Block =
   | { type: "p"; text: string }
@@ -24,6 +23,8 @@ export type CaseStudy = {
   // One of the honest status labels used across the site.
   status: string;
   cover: "checkout" | "locale" | "cli";
+  // Background the cover drawing sits on.
+  tone: "wine" | "blush" | "dark";
   coverCaption: { a: string; b: string };
   sections: Section[];
 };
@@ -39,9 +40,10 @@ export const work: CaseStudy[] = [
     stack: ["Vanilla JavaScript", "SCSS", "MutationObserver", "Webpack"],
     status: "Client experiment, built at Optiphoenix",
     cover: "checkout",
+    tone: "wine",
     coverCaption: {
-      a: "Control: one generic step for everyone",
-      b: "Variant: log in, create an account, or carry on as a guest",
+      a: "Control: the shopper types, React hears nothing",
+      b: "Variant: the same value, now visible to React",
     },
     sections: [
       {
@@ -141,12 +143,13 @@ nativeEl.dispatchEvent(new view.Event("change", { bubbles: true }));`,
     slug: "one-experiment-four-markets",
     number: "02",
     title: "One experiment, four markets",
-    dek: "What building multi-locale experiments for Norwegian and Accor taught me about where copy should live.",
-    client: "Norwegian and Accor",
+    dek: "What building multi-locale experiments for an airline and a hotel group taught me about where copy should live.",
+    client: "A Nordic airline and a global hotel group",
     role: "Experiment developer: build, locale handling and QA",
     stack: ["Vanilla JavaScript", "SCSS", "MutationObserver"],
     status: "Client experiments, built at Optiphoenix",
     cover: "locale",
+    tone: "blush",
     coverCaption: {
       a: "Control: a seat map with no sense of how far along you are",
       b: "Variant: one heading, four languages, counting the legs",
@@ -157,7 +160,7 @@ nativeEl.dispatchEvent(new view.Event("change", { bubbles: true }));`,
         blocks: [
           {
             type: "p",
-            text: "An experiment for an international brand is never one experiment. Norwegian runs in four markets: Norway, Denmark, Sweden and an international English site. Accor’s homepage search had to work in eight languages. A variant that is right in one locale and broken in another spoils the data for all of them.",
+            text: "An experiment for an international brand is never one experiment. The airline runs in four markets: Norway, Denmark, Sweden and an international English site. The hotel group’s homepage search had to work in eight languages. A variant that is right in one locale and broken in another spoils the data for all of them.",
           },
         ],
       },
@@ -169,7 +172,7 @@ nativeEl.dispatchEvent(new view.Event("change", { bubbles: true }));`,
             items: [
               "Seat selection. On mobile, travellers had no sense of how many flight legs they were choosing seats for. I added a heading that reads the number of legs from the page and counts through them as the booking progresses.",
               "Destinations by month. A flat list of destinations became a month slider. The cards beneath it arrive asynchronously, so the slider waits for the data before it renders and stays in step with it afterwards.",
-              "Homepage search. A richer search for Accor, with every label, placeholder, error message and date format served from a single map keyed on the detected language.",
+              "Homepage search. A richer search for the hotel group, with every label, placeholder, error message and date format served from a single map keyed on the detected language.",
             ],
           },
         ],
@@ -234,6 +237,7 @@ const t = copy[locale] || copy.en;`,
     stack: ["Node.js", "Gulp", "Optimizely REST API"],
     status: "Internal tool, in team-wide use",
     cover: "cli",
+    tone: "dark",
     coverCaption: {
       a: "Control: the same setup, by hand, every time",
       b: "Variant: one command",

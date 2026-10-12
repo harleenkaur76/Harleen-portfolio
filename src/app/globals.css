@@ -1,15 +1,23 @@
 @import "tailwindcss";
 
-/* Design tokens. The palette is deliberately small: paper, ink, and one
-   accent (oxblood) that is reserved for annotations and actions. */
+/* ------------------------------------------------------------------
+   Tokens. Variant B (the designed page) is the default. Sections can
+   re-tone themselves with a .tone-* class, which swaps the same seven
+   variables so every component inside keeps working unchanged.
+   ------------------------------------------------------------------ */
 :root {
-  --paper: #f6f1e7;
-  --paper-deep: #ece4d4;
-  --ink: #2a211c;
-  --ink-soft: #5e5149;
-  --rule: #d6cbb8;
-  --oxblood: #7a1f2b;
-  --rose: #c8a199;
+  --paper: #f5efe4;
+  --paper-deep: #eae0cf;
+  --ink: #261d19;
+  --ink-soft: #5f5148;
+  --rule: #d5c8b4;
+  --oxblood: #761d29;
+  --rose: #c9a39a;
+
+  --display: var(--font-fraunces), "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --body: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --mono: var(--font-dm-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  --radius-btn: 999px;
 }
 
 @theme inline {
@@ -21,9 +29,9 @@
   --color-oxblood: var(--oxblood);
   --color-rose: var(--rose);
 
-  --font-display: var(--font-instrument), "Iowan Old Style", "Palatino Linotype", Georgia, serif;
-  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-dm-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  --font-display: var(--display);
+  --font-sans: var(--body);
+  --font-mono: var(--mono);
 }
 
 html {
@@ -40,7 +48,7 @@ html {
 body {
   background: var(--paper);
   color: var(--ink);
-  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--body);
   font-size: 1.0625rem;
   line-height: 1.65;
   text-rendering: optimizeLegibility;
@@ -51,9 +59,9 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: 30;
   pointer-events: none;
-  opacity: 0.35;
+  opacity: 0.3;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .16 0 0 0 0 .13 0 0 0 0 .11 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
 }
@@ -70,143 +78,238 @@ body::before {
 }
 
 @layer components {
-/* ---------- Layout ---------- */
+  /* ---------- Section tones ---------- */
 
-.shell {
-  width: 100%;
-  max-width: 78rem;
-  margin-inline: auto;
-  padding-inline: 1.25rem;
-}
-
-@media (min-width: 48rem) {
-  .shell {
-    padding-inline: 2.5rem;
+  .tone-paper {
+    --paper: #f8f3ea;
+    --paper-deep: #eae0cf;
+    --ink: #261d19;
+    --ink-soft: #5f5148;
+    --rule: #d5c8b4;
+    --oxblood: #761d29;
   }
-}
 
-/* ---------- Type ---------- */
+  .tone-blush {
+    --paper: #ecdbd0;
+    --paper-deep: #e2cbbe;
+    --rule: #d2b5a7;
+    --ink-soft: #5a4a42;
+  }
 
-.display {
-  font-family: var(--font-instrument), "Iowan Old Style", "Palatino Linotype", Georgia, serif;
-  font-weight: 400;
-  line-height: 1.02;
-  letter-spacing: -0.015em;
-  text-wrap: balance;
-}
+  .tone-dark {
+    --paper: #231a16;
+    --paper-deep: #30251f;
+    --ink: #f5efe4;
+    --ink-soft: #cdbfae;
+    --rule: #4b3d34;
+    --oxblood: #e3aa9d;
+    --rose: #8d6259;
+  }
 
-.label {
-  font-family: var(--font-dm-mono), ui-monospace, "SF Mono", Menlo, monospace;
-  font-size: 0.6875rem;
-  line-height: 1.5;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
+  .tone-wine {
+    --paper: #6b1a25;
+    --paper-deep: #7b2430;
+    --ink: #f8f1e6;
+    --ink-soft: #ecd3ca;
+    --rule: #944650;
+    --oxblood: #f4d9bd;
+    --rose: #c98f8f;
+  }
 
-.prose-body {
-  max-width: 38rem;
-  text-wrap: pretty;
-}
+  [class*="tone-"] {
+    background: var(--paper);
+    color: var(--ink);
+  }
 
-code {
-  font-family: var(--font-dm-mono), ui-monospace, "SF Mono", Menlo, monospace;
-  font-size: 0.86em;
-  padding: 0.08em 0.32em;
-  border-radius: 3px;
-  background: var(--paper-deep);
-}
+  /* ---------- Layout ---------- */
 
-pre code {
-  padding: 0;
-  background: none;
-  font-size: 0.8125rem;
-  line-height: 1.7;
-}
+  .shell {
+    width: 100%;
+    max-width: 78rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
 
-/* ---------- Annotations ---------- */
+  @media (min-width: 48rem) {
+    .shell {
+      padding-inline: 2.5rem;
+    }
+  }
 
-/* A margin note: the handwritten-in-the-margin voice of the site. */
-.note {
-  position: relative;
-  padding-left: 1.5rem;
-  font-family: var(--font-instrument), "Iowan Old Style", "Palatino Linotype", Georgia, serif;
-  font-style: italic;
-  font-size: 1.1875rem;
-  line-height: 1.35;
-  color: var(--oxblood);
-  text-wrap: balance;
-}
+  .section {
+    padding-block: 4.5rem;
+  }
 
-.note::before {
-  content: "↳";
-  position: absolute;
-  left: 0;
-  top: -0.05em;
-  font-style: normal;
-}
+  @media (min-width: 48rem) {
+    .section {
+      padding-block: 6.5rem;
+    }
+  }
 
-/* Links inside running text */
-.link {
-  text-decoration: underline;
-  text-decoration-color: var(--rose);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 4px;
-  transition: text-decoration-color 0.2s, color 0.2s;
-}
+  /* ---------- Type ---------- */
 
-.link:hover {
-  color: var(--oxblood);
-  text-decoration-color: var(--oxblood);
-}
+  .display {
+    font-family: var(--display);
+    font-weight: 340;
+    font-variation-settings: "SOFT" 60;
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
 
-/* Arrow links: the arrow steps forward on hover */
-.arrow-link .arrow {
-  display: inline-block;
-  transition: transform 0.25s ease;
-}
+  .hero-title {
+    font-size: clamp(2.6rem, 7.3vw, 6.9rem);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+  }
 
-.arrow-link:hover .arrow {
-  transform: translateX(4px);
-}
+  .label {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    line-height: 1.5;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
 
-/* Active nav item: a wavy proofreader's underline */
-.nav-link[aria-current="true"] {
-  color: var(--oxblood);
-  text-decoration: underline wavy var(--oxblood);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 7px;
-}
+  .prose-body {
+    max-width: 38rem;
+    text-wrap: pretty;
+  }
 
-/* ---------- Buttons ---------- */
+  code {
+    font-family: var(--mono);
+    font-size: 0.86em;
+    padding: 0.08em 0.32em;
+    border-radius: 3px;
+    background: var(--paper-deep);
+  }
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  min-height: 2.875rem;
-  padding: 0.7rem 1.35rem;
-  border: 1px solid var(--ink);
-  border-radius: 999px;
-  font-size: 0.9375rem;
-  font-weight: 500;
-  line-height: 1.2;
-  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-}
+  pre code {
+    padding: 0;
+    background: none;
+    font-size: 0.8125rem;
+    line-height: 1.7;
+  }
 
-.btn-solid {
-  background: var(--ink);
-  color: var(--paper);
-}
+  /* ---------- Annotations ---------- */
 
-.btn-solid:hover {
-  background: var(--oxblood);
-  border-color: var(--oxblood);
-}
+  .note {
+    position: relative;
+    padding-left: 1.5rem;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 1.125rem;
+    font-weight: 360;
+    line-height: 1.38;
+    color: var(--oxblood);
+    text-wrap: balance;
+  }
 
-.btn-ghost:hover {
-  background: var(--ink);
-  color: var(--paper);
+  .note::before {
+    content: "↳";
+    position: absolute;
+    left: 0;
+    top: -0.05em;
+    font-style: normal;
+  }
+
+  .link {
+    text-decoration: underline;
+    text-decoration-color: var(--rose);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition:
+      text-decoration-color 0.2s,
+      color 0.2s;
+  }
+
+  .link:hover {
+    color: var(--oxblood);
+    text-decoration-color: var(--oxblood);
+  }
+
+  .arrow-link .arrow {
+    display: inline-block;
+    transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .arrow-link:hover .arrow {
+    transform: translateX(6px);
+  }
+
+  .nav-link[aria-current="true"] {
+    color: var(--oxblood);
+    text-decoration: underline wavy var(--oxblood);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 7px;
+  }
+
+  /* ---------- Buttons ---------- */
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 2.875rem;
+    padding: 0.7rem 1.35rem;
+    border: 1px solid var(--ink);
+    border-radius: var(--radius-btn);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    line-height: 1.2;
+    transition:
+      background-color 0.25s,
+      color 0.25s,
+      border-color 0.25s,
+      transform 0.25s;
+  }
+
+  .btn:active {
+    transform: scale(0.97);
+  }
+
+  .btn-solid {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .btn-solid:hover {
+    background: var(--oxblood);
+    border-color: var(--oxblood);
+  }
+
+  .btn-ghost:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  /* ---------- Covers ---------- */
+
+  .cover {
+    position: relative;
+    overflow: hidden;
+    background: var(--paper-deep);
+    border: 1px solid var(--rule);
+  }
+
+  .cover svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  a:hover .cover svg {
+    transform: scale(1.035) rotate(-0.4deg);
+  }
+
+  /* ---------- Marquee ---------- */
+
+  .marquee {
+    display: flex;
+    width: max-content;
+  }
 }
 
 /* ---------- Control / Variant ---------- */
@@ -218,76 +321,242 @@ pre code {
   display: none !important;
 }
 
-/* ---------- Covers ---------- */
+/* Variant A, "the control": the same content with every design decision
+   taken out. System fonts, grey on white, one blue, centred hero. */
+:is([data-variant="a"], .skin-control),
+:is([data-variant="a"], .skin-control) [class*="tone-"] {
+  --paper: #ffffff;
+  --paper-deep: #f3f4f6;
+  --ink: #111827;
+  --ink-soft: #4b5563;
+  --rule: #e5e7eb;
+  --oxblood: #2563eb;
+  --rose: #93c5fd;
+  --display: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --radius-btn: 6px;
+}
 
-.cover {
+:is([data-variant="a"], .skin-control) body::before,
+:is([data-variant="a"], .skin-control) .note {
+  display: none;
+}
+
+:is([data-variant="a"], .skin-control) .display {
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+:is([data-variant="a"], .skin-control) .display em {
+  font-style: normal;
+  color: inherit;
+}
+
+:is([data-variant="a"], .skin-control) h1.display {
+  font-size: clamp(2rem, 4.6vw, 3.25rem);
+}
+
+:is([data-variant="a"], .skin-control) h2.display {
+  font-size: clamp(1.6rem, 3vw, 2.125rem);
+}
+
+:is([data-variant="a"], .skin-control) h3.display,
+:is([data-variant="a"], .skin-control) p.display {
+  font-size: 1.375rem;
+}
+
+:is([data-variant="a"], .skin-control) .label {
+  letter-spacing: 0.04em;
+  font-size: 0.75rem;
+}
+
+:is([data-variant="a"], .skin-control) .btn-solid {
+  background: var(--oxblood);
+  border-color: var(--oxblood);
+  color: #fff;
+}
+
+:is([data-variant="a"], .skin-control) .btn-ghost {
+  border-color: var(--rule);
+}
+
+:is([data-variant="a"], .skin-control) .section {
+  padding-block: 3.5rem;
+}
+
+:is([data-variant="a"], .skin-control) .cover {
+  border-radius: 8px;
+}
+
+/* ---------- Hero split: drag the handle to compare control and variant ---------- */
+
+@property --pos {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 100%;
+}
+
+.split {
   position: relative;
-  overflow: hidden;
-  background: var(--paper-deep);
-  border: 1px solid var(--rule);
+  overflow: clip;
 }
 
-.cover svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-
-a:hover .cover svg {
-  transform: scale(1.025);
-}
-
-/* ---------- Avatar: a two-colour print of a real photo ---------- */
-
-.avatar {
-  position: relative;
-  overflow: hidden;
-  background: var(--paper);
-  isolation: isolate;
-}
-
-.avatar img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(1) contrast(1.15);
-  mix-blend-mode: multiply;
-}
-
-.avatar::after {
-  content: "";
+.split-control {
   position: absolute;
   inset: 0;
-  background: var(--oxblood);
-  mix-blend-mode: lighten;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  clip-path: inset(0 0 0 var(--pos));
 }
 
+.split-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  z-index: 3;
+  width: 1.5rem;
+  margin-left: -1.5rem;
+  cursor: ew-resize;
+  touch-action: none;
+  border-right: 1px solid var(--ink);
+  outline: none;
+}
+
+.split-handle:focus-visible .split-knob {
+  outline: 2px solid var(--oxblood);
+  outline-offset: 2px;
+}
+
+.split-knob {
+  position: absolute;
+  right: -1px;
+  top: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.7rem;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-radius: 999px 0 0 999px;
+  transition: background-color 0.2s;
+}
+
+.split-handle:hover .split-knob,
+.split-handle:focus-visible .split-knob {
+  background: var(--oxblood);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .split-intro {
+    animation: sweep 1.7s 0.35s cubic-bezier(0.75, 0, 0.2, 1) backwards;
+  }
+
+  @keyframes sweep {
+    from {
+      --pos: 0%;
+    }
+  }
+}
+
+.control-banner {
+  position: relative;
+  z-index: 41;
+  padding: 0.55rem 1.25rem;
+  background: #111827;
+  color: #fff;
+  font-size: 0.8125rem;
+  text-align: center;
 }
 
 /* ---------- Motion ---------- */
 
-/* Sections ease in as they enter the viewport. Pure CSS, only where
-   scroll-driven animations are supported, and never with reduced motion.
-   Everywhere else the content is simply there. */
 @media (prefers-reduced-motion: no-preference) {
+  .marquee {
+    animation: marquee 38s linear infinite;
+  }
+
+  .marquee-wrap:hover .marquee {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .spin {
+    transform-origin: center;
+    animation: spin 36s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Sections ease in as they enter the viewport. Pure CSS, only where
+     scroll-driven animations are supported. Elsewhere the content is
+     simply there. */
   @supports (animation-timeline: view()) {
     .reveal {
       animation: reveal linear both;
       animation-timeline: view();
-      animation-range: entry 0% entry 55%;
+      animation-range: entry 0% entry 60%;
+    }
+
+    .cover-reveal {
+      animation: unmask linear both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 80%;
     }
   }
 
   @keyframes reveal {
     from {
       opacity: 0;
-      transform: translateY(18px);
+      transform: translateY(22px);
+    }
+  }
+
+  @keyframes unmask {
+    from {
+      clip-path: inset(0 0 100% 0);
     }
     to {
-      opacity: 1;
-      transform: none;
+      clip-path: inset(0);
+    }
+  }
+
+  /* Switching A/B wipes the new page down over the old one */
+  ::view-transition-old(root) {
+    animation: none;
+  }
+
+  ::view-transition-new(root) {
+    animation: wipe 0.75s cubic-bezier(0.7, 0, 0.2, 1);
+  }
+
+  @keyframes wipe {
+    from {
+      clip-path: inset(0 0 100% 0);
+    }
+    to {
+      clip-path: inset(0);
     }
   }
 }
@@ -297,6 +566,6 @@ a:hover .cover svg {
   *::before,
   *::after {
     transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
+    animation: none !important;
   }
 }
