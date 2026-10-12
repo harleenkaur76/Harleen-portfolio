@@ -1,156 +1,76 @@
-<div align="center">
+# Harleen Kaur — portfolio
 
-  <img src="public/profile.jpg" width="120" height="120" style="border-radius: 50%; object-fit: cover;" />
+A personal portfolio built as an annotated editorial notebook ("Field Notes").
+Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4. Every page is
+statically generated; the only server code is the contact form action.
 
-  # Harleen Kaur
-
-  **Frontend Engineer & A/B Testing Expert**
-
-  <p align="center">
-    <a href="mailto:harleenbindra07@gmail.com">Email</a> &middot;
-    <a href="https://linkedin.com/in/harleenkaur07">LinkedIn</a> &middot;
-    <a href="https://github.com/harleenkaur76">GitHub</a>
-  </p>
-
-  [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js&logoColor=white)](https://nextjs.org/)
-  [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev/)
-  [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-  [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-  [![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-EF4444?logo=framer&logoColor=white)](https://www.framer.com/motion/)
-
-</div>
-
----
-
-## About
-
-A bold, animated portfolio built from scratch to showcase what I do best — **shipping production-grade A/B experiments and performance-optimised SPAs** for global brands.
-
-Built with **Next.js 16**, **Tailwind CSS v4**, and **Framer Motion**. Dark-themed with coral and teal accents, scroll-triggered animations, and a working contact form powered by Resend.
-
-| Metric | What I Deliver |
-|--------|--------------|
-| 100+ | Production A/B experiments deployed |
-| 80% | Faster experiment setup time |
-| 35%+ | Average conversion lift per test |
-| 3+ | Years of client-side engineering |
-
----
-
-## Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| Framework | Next.js 16 (App Router) |
-| Language | TypeScript |
-| Styling | Tailwind CSS v4 |
-| Animations | Framer Motion |
-| Icons | Lucide React + Custom SVG |
-| Email | Resend (Server Actions) |
-| Fonts | Geist Sans + Geist Mono |
-
----
-
-## Features
-
-- **Bold Dark Design** — deep space background with coral (`#FF6B35`) and teal (`#00d4aa`) accents
-- **Particle Background** — animated canvas particles floating behind content
-- **Scroll-Triggered Animations** — every section fades/slides in via Framer Motion
-- **Animated Stat Counters** — numbers count up when scrolled into view
-- **Metric-Driven Experience Timeline** — every role has quantified business impact
-- **Interactive Skills Grid** — proficiency bars animate on scroll
-- **Project Showcases** — with performance metrics and tech tags
-- **Contact Form** — fully working email delivery via Resend
-- **Fully Responsive** — mobile, tablet, desktop
-- **SEO Optimised** — metadata, OpenGraph, semantic HTML
-
----
-
-## Getting Started
+## Run it
 
 ```bash
-# Clone the repo
-git clone https://github.com/harleenkaur76/harleen-portfolio.git
-cd harleen-portfolio
-
-# Install dependencies
 npm install
-
-# Start dev server
-npm run dev
+npm run dev      # http://localhost:3000
+npm run lint
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+## Where things live
 
----
+| To change… | Edit |
+|---|---|
+| Name, email, links, availability line, nav | `src/content/site.ts` |
+| Case studies (homepage rows and `/work/[slug]` pages) | `src/content/work.ts` |
+| About text, working principles, freelance offer, experiments list | `src/content/home.ts` |
+| Future shop products | `src/content/products.ts` |
+| Colours, type, annotations, motion | `src/app/globals.css` |
+| Case-study cover drawings | `src/components/covers/Cover.tsx` |
+| Portrait | `public/portrait-print.webp` (generated from `public/profile.jpg`) |
 
-## Project Structure
+### Add a case study
 
-```
-src/
-├── app/
-│   ├── actions.ts          # Server action for contact form
-│   ├── layout.tsx          # Root layout with metadata + SEO
-│   ├── page.tsx            # Homepage composing all sections
-│   ├── globals.css         # Global styles + CSS variables
-│   └── blog/               # Blog pages
-├── components/
-│   ├── Hero.tsx            # Animated hero with typewriter
-│   ├── Stats.tsx           # Animated counters
-│   ├── Experience.tsx      # Work history timeline
-│   ├── Skills.tsx          # Interactive skills grid
-│   ├── Projects.tsx        # Project showcases
-│   ├── Contact.tsx         # Contact form + info
-│   ├── Footer.tsx          # Footer with social links
-│   ├── Navbar.tsx          # Fixed nav + mobile menu
-│   ├── ParticleBackground.tsx  # Canvas particle effect
-│   └── Icons.tsx           # Custom SVG icons
-├── lib/
-│   └── blog-data.ts        # Blog post data
-public/
-└── profile.jpg             # Author photo
-```
+Add an object to the `work` array in `src/content/work.ts`. It needs a `cover`
+key; either reuse one of the existing drawings or add a new one in `Cover.tsx`
+with a Control group (`only-a`) and a Variant group (`only-b`). The page, the
+homepage row and the sitemap entry are generated from the data.
 
----
+### Status labels
 
-## Deploy to Vercel
+Every project carries an honest status. Use one of: *Live product*, *Completed
+project*, *Working prototype*, *Prototype in progress*, *Learning project*,
+*Concept in development*. Update the label when the project changes, not before.
 
-1. Push to GitHub
-2. Import into [vercel.com](https://vercel.com)
-3. Add environment variable in Vercel dashboard:
-   - `RESEND_API_KEY` — from [resend.com](https://resend.com)
-4. Deploy!
+### The A/B switch
 
-Vercel auto-deploys on every push to `main`.
+The header switch sets `data-variant="a" | "b"` on `<html>`. Any element with
+the class `only-a` or `only-b` shows in one state only. It is decorative: it
+stores nothing and sends nothing.
 
----
+## Contact form
 
-## Contact Form Setup
+The form posts to a server action (`src/app/actions.ts`).
 
-The contact form uses [Resend](https://resend.com) to send emails.
+- With `RESEND_API_KEY` set, messages are emailed through Resend.
+- Without it, or if sending fails, the form opens the visitor's email app with
+  their message already filled in.
 
-1. Sign up at [resend.com](https://resend.com)
-2. Get your API key
-3. Add it as `RESEND_API_KEY` in Vercel environment variables
-4. Verify your domain (or use `onboarding@resend.dev` for testing)
-5. Update the `from` and `to` addresses in `src/app/actions.ts` if needed
+Set the key in Vercel under Project → Settings → Environment Variables. Never
+commit it. Resend's shared `onboarding@resend.dev` sender only delivers to the
+address that owns the Resend account; verify a domain to change the sender.
 
----
+## Launching a product later
 
-## License
+`src/content/products.ts` is empty on purpose. While it is empty `/shop` returns
+404 and no Shop link is shown. To launch:
 
-MIT — feel free to use this as a template for your own portfolio. Just swap in your own content and colours.
+1. Create the product on a hosted checkout that handles payment and file
+   delivery (Lemon Squeezy, Gumroad or a Stripe Payment Link).
+2. Add a `Product` object with that `checkoutUrl` and a cover image in
+   `public/products/`.
 
----
+The Shop nav link, the `/shop` grid, the `/shop/[slug]` page and the sitemap
+entries then appear on their own. No payment data touches this site.
 
-<div align="center">
+## Deploying
 
-  Built with care by **Harleen Kaur**
-
-  <p align="center">
-    <a href="mailto:harleenbindra07@gmail.com">Email</a> &middot;
-    <a href="https://linkedin.com/in/harleenkaur07">LinkedIn</a> &middot;
-    <a href="https://github.com/harleenkaur76">GitHub</a>
-  </p>
-
-</div>
+The repo is connected to Vercel. Pushing to `main` deploys. When a custom domain
+is attached, set `NEXT_PUBLIC_SITE_URL` to it so canonical URLs, the sitemap and
+social previews use the right address.

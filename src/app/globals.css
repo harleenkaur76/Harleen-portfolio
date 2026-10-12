@@ -1,106 +1,302 @@
 @import "tailwindcss";
 
+/* Design tokens. The palette is deliberately small: paper, ink, and one
+   accent (oxblood) that is reserved for annotations and actions. */
 :root {
-  --background: #0d0c0a;
-  --foreground: #f2eee6;
-  --accent: #e5bc5c;
-  --accent-dim: #c9a04a;
-  --card: #181614;
-  --card-elevated: #1e1b16;
-  --body: #b8ad9c;
-  --muted: #9a9386;
-  --border: rgba(255,255,255,0.05);
+  --paper: #f6f1e7;
+  --paper-deep: #ece4d4;
+  --ink: #2a211c;
+  --ink-soft: #5e5149;
+  --rule: #d6cbb8;
+  --oxblood: #7a1f2b;
+  --rose: #c8a199;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --color-accent-dim: var(--accent-dim);
-  --color-card: var(--card);
-  --color-card-elevated: var(--card-elevated);
-  --color-body: var(--body);
-  --color-muted: var(--muted);
-  --color-border: var(--border);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-paper: var(--paper);
+  --color-paper-deep: var(--paper-deep);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-rule: var(--rule);
+  --color-oxblood: var(--oxblood);
+  --color-rose: var(--rose);
+
+  --font-display: var(--font-instrument), "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-dm-mono), ui-monospace, "SF Mono", Menlo, monospace;
 }
 
 html {
-  scroll-behavior: smooth;
+  background: var(--paper);
+  scroll-padding-top: 5.5rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  text-rendering: optimizeLegibility;
 }
 
-/* Background noise texture overlay */
+/* Faint paper grain. One tiny inline SVG, no image request. */
 body::before {
   content: "";
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.04;
+  inset: 0;
+  z-index: 0;
   pointer-events: none;
-  z-index: 9999;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 256px;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .16 0 0 0 0 .13 0 0 0 0 .11 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 ::selection {
-  background: rgba(229, 188, 92, 0.3);
-  color: #f2eee6;
+  background: var(--oxblood);
+  color: var(--paper);
 }
 
-@keyframes gradient-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+:focus-visible {
+  outline: 2px solid var(--oxblood);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
-.gradient-text {
-  background: linear-gradient(135deg, #e5bc5c, #f0d28a, #d4a853);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradient-shift 4s ease infinite;
+@layer components {
+/* ---------- Layout ---------- */
+
+.shell {
+  width: 100%;
+  max-width: 78rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
 }
 
-/* Section alternating backgrounds */
-.alt-bg {
-  background: linear-gradient(180deg, rgba(20,18,14,0.0) 0%, rgba(20,18,14,0.4) 50%, rgba(20,18,14,0.0) 100%);
+@media (min-width: 48rem) {
+  .shell {
+    padding-inline: 2.5rem;
+  }
 }
 
-.card-hover {
-  transition: all 0.3s ease;
+/* ---------- Type ---------- */
+
+.display {
+  font-family: var(--font-instrument), "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 5px;
+.label {
+  font-family: var(--font-dm-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.6875rem;
+  line-height: 1.5;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
 }
 
-::-webkit-scrollbar-track {
-  background: #0d0c0a;
+.prose-body {
+  max-width: 38rem;
+  text-wrap: pretty;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #3d3830;
+code {
+  font-family: var(--font-dm-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.86em;
+  padding: 0.08em 0.32em;
   border-radius: 3px;
+  background: var(--paper-deep);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #5a5348;
+pre code {
+  padding: 0;
+  background: none;
+  font-size: 0.8125rem;
+  line-height: 1.7;
 }
 
-/* Smooth motion preference */
+/* ---------- Annotations ---------- */
+
+/* A margin note: the handwritten-in-the-margin voice of the site. */
+.note {
+  position: relative;
+  padding-left: 1.5rem;
+  font-family: var(--font-instrument), "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  font-style: italic;
+  font-size: 1.1875rem;
+  line-height: 1.35;
+  color: var(--oxblood);
+  text-wrap: balance;
+}
+
+.note::before {
+  content: "↳";
+  position: absolute;
+  left: 0;
+  top: -0.05em;
+  font-style: normal;
+}
+
+/* Links inside running text */
+.link {
+  text-decoration: underline;
+  text-decoration-color: var(--rose);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.2s, color 0.2s;
+}
+
+.link:hover {
+  color: var(--oxblood);
+  text-decoration-color: var(--oxblood);
+}
+
+/* Arrow links: the arrow steps forward on hover */
+.arrow-link .arrow {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+.arrow-link:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* Active nav item: a wavy proofreader's underline */
+.nav-link[aria-current="true"] {
+  color: var(--oxblood);
+  text-decoration: underline wavy var(--oxblood);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 7px;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 2.875rem;
+  padding: 0.7rem 1.35rem;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.2;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.btn-solid {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.btn-solid:hover {
+  background: var(--oxblood);
+  border-color: var(--oxblood);
+}
+
+.btn-ghost:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* ---------- Control / Variant ---------- */
+
+/* The switch in the header sets data-variant on <html>. Anything marked
+   only-a or only-b shows in one state. Nothing is tracked. */
+[data-variant="a"] .only-b,
+[data-variant="b"] .only-a {
+  display: none !important;
+}
+
+/* ---------- Covers ---------- */
+
+.cover {
+  position: relative;
+  overflow: hidden;
+  background: var(--paper-deep);
+  border: 1px solid var(--rule);
+}
+
+.cover svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+a:hover .cover svg {
+  transform: scale(1.025);
+}
+
+/* ---------- Avatar: a two-colour print of a real photo ---------- */
+
+.avatar {
+  position: relative;
+  overflow: hidden;
+  background: var(--paper);
+  isolation: isolate;
+}
+
+.avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.15);
+  mix-blend-mode: multiply;
+}
+
+.avatar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--oxblood);
+  mix-blend-mode: lighten;
+}
+
+}
+
+/* ---------- Motion ---------- */
+
+/* Sections ease in as they enter the viewport. Pure CSS, only where
+   scroll-driven animations are supported, and never with reduced motion.
+   Everywhere else the content is simply there. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+  }
+
+  @keyframes reveal {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }
