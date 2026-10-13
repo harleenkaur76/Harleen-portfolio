@@ -1,56 +1,62 @@
 "use server";
 
 import { Resend } from "resend";
+import { site } from "@/content/site";
 
-const resend = process.env.RESEND_API_KEY
-  ? new Resend(process.env.RESEND_API_KEY)
-  : null;
+export type ContactState = {
+  status: "idle" | "sent" | "error" | "fallback";
+  message?: string;
+  // Echoed back on error so the form keeps what the visitor typed.
+  values?: { name: string; email: string; message: string };
+};
 
-export async function sendContactEmail(formData: FormData) {
-  const name = formData.get("name") as string;
-  const email = formData.get("email") as string;
-  const subject = formData.get("subject") as string;
-  const message = formData.get("message") as string;
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+
+const escapeHtml = (value: string) =>
+  value.replace(/[&<>"']/g, (char) => `&#${char.charCodeAt(0)};`);
+
+export async function sendContactEmail(
+  _previous: ContactState,
+  formData: FormData,
+): Promise<ContactState> {
+  const name = String(formData.get("name") ?? "").trim();
+  const email = String(formData.get("email") ?? "").trim();
+  const message = String(formData.get("message") ?? "").trim();
+
+  // Honeypot: real people never fill this hidden field.
+  if (formData.get("company")) return { status: "sent" };
+
+  const values = { name, email, message };
 
   if (!name || !email || !message) {
-    return { success: false, error: "Please fill in all required fields." };
+    return { status: "error", message: "Please fill in your name, email and a message.", values };
   }
-
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    return { success: false, error: "Please enter a valid email address." };
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return { status: "error", message: "That email address doesn’t look right.", values };
   }
-
-  // If Resend is not configured, signal client to use mailto fallback
-  if (!resend) {
+  if (message.length > 5000) {
     return {
-      success: false,
-      requiresFallback: true,
-      error: null,
+      status: "error",
+      message: "That message is a little long. Could you trim it?",
+      values,
     };
   }
+
+  // Without a Resend key the form hands over to the visitor's own email app.
+  if (!resend) return { status: "fallback", values };
 
   try {
-    await resend.emails.send({
-      from: "Portfolio Contact <onboarding@resend.dev>",
-      to: "harleenbindra07@gmail.com",
-      subject: `Portfolio Contact: ${subject || "New Message"}`,
-      html: `
-        <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Subject:</strong> ${subject || "N/A"}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message.replace(/\n/g, "<br>")}</p>
-      `,
+    const { error } = await resend.emails.send({
+      from: "Portfolio <onboarding@resend.dev>",
+      to: site.email,
+      replyTo: email,
+      subject: `Portfolio enquiry from ${name}`,
+      html: `<p><strong>${escapeHtml(name)}</strong> (${escapeHtml(email)}) wrote:</p><p>${escapeHtml(message).replace(/\n/g, "<br>")}</p>`,
     });
-
-    return { success: true, error: null };
+    if (error) throw new Error(error.message);
+    return { status: "sent" };
   } catch (error) {
-    console.error("Failed to send email:", error);
-    return {
-      success: false,
-      error: "Failed to send message. Please try again or contact me directly.",
-    };
+    console.error("Contact form failed:", error);
+    return { status: "fallback", values };
   }
 }
